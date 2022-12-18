@@ -1,0 +1,118 @@
+maximum sub array:
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int sum=0;
+        int maximum = nums[0];
+        for(int i=0;i<nums.length;i++){
+            sum += nums[i];
+            if(sum>maximum)maximum=sum;
+            if(sum<0)sum=0;
+        }
+        return maximum;
+        
+    }
+}
+................................................................
+find duplicates:
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int slow = nums[0];
+        int fast = nums[0];
+        do{
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }while(slow != fast);
+
+        fast = nums[0];
+        while(slow!=fast){
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return slow;
+        
+    }
+}
+...........................................................
+longest consecutives:
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> hashSet = new HashSet<Integer>();
+        for(int num:nums){
+            hashSet.add(num);
+        }
+        int maxLen = 0;
+        for(int num : nums){
+            if(!hashSet.contains(num-1)){
+                int currentNum = num;
+                int currentLen = 1;
+                while(hashSet.contains(currentNum+1)){
+                    currentNum +=1;
+                    currentLen +=1;
+                }
+                maxLen = Math.max(maxLen,currentLen);
+            }
+        }
+        return maxLen;
+        
+    }
+}
+...................................................................
+majority element:
+class Solution {
+    public int majorityElement(int[] nums) {
+        int count = 0;
+        int ele = 0;
+        for(int num:nums){
+            if(count ==0){
+                ele = num;
+            }
+            if(num==ele)count+=1;
+            else count -=1;
+        }
+        return ele;
+        
+    }
+}
+..........................................................................
+sort colours:
+void swap(int *a,int *b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+void sortColors(int* nums, int numsSize){
+    int l=0,m=0,h = numsSize-1;
+    while(m<=h){
+        if(nums[m]==0){
+            swap(&nums[l],&nums[m]);
+            l++;
+            m++;
+        }
+        else if(nums[m]==1){
+            m++;
+        }
+        else if(nums[m]==2){
+            swap(&nums[m],&nums[h]);
+            h--;
+        }
+    }
+
+.....................................
+max consecutive ones:
+class Solution {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int count = 0;
+        int max = 0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==1)
+             count++;
+            else
+             count=0;
+             max = Math.max(max,count);
+
+        }
+        return max;
+
+        
+    }
+}
