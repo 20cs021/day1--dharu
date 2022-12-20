@@ -1,0 +1,75 @@
+valid parentheses
+
+class Solution {
+    public boolean isValid(String s) {
+        Stack <Character> st = new Stack <Character>();
+        for( char i : s.toCharArray()){
+            if(i == '(' || i == '[' || i == '{')
+                 st.push(i);
+            else{
+                if(st.isEmpty()) return false;
+                char ch = st.pop();
+                if((i == ')' && ch == '(') || (i==']' && ch == '[') || (i=='}' && ch == '{')) continue;
+                else return false;
+            }
+        }
+        return st.isEmpty();
+        
+    }
+}
+...................................................................................
+next greater element 2
+ 
+
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int n = nums.length;
+        int nge[] = new int[n];
+        Stack<Integer> st =new Stack<>();
+        for(int i =2*n-1;i>=0;i--){
+            while(st.isEmpty()==false && st.peek()<=nums[i%n]){
+                st.pop();
+            }
+            if(i<n){
+                if(st.isEmpty()== false)
+                  nge[i] = st.peek();
+                else nge[i] = -1;
+            }
+            st.push(nums[i%n]);
+        }
+        return nge;
+        
+    }
+}
+..........................................................................
+largest rectangle of histogram
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int n=heights.length;
+        Stack<Integer>st=new Stack<>();
+        int leftSmall[]=new int[n];
+        int rightSmall[]=new int[n];
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && heights[st.peek()] >= heights[i]){
+                st.pop();
+            }if(st.isEmpty()) leftSmall[i]=0;
+            else leftSmall[i]=st.peek()+1;
+            st.push(i);
+        }
+        while(!st.isEmpty()) st.pop();
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && heights[st.peek()]>=heights[i]){
+                st.pop();
+            }
+            if(st.isEmpty())rightSmall[i]=n-1;
+            else rightSmall[i]=st.peek()-1;
+            st.push(i);
+        }
+        int maxA=0;
+        for(int i=0;i<n;i++){
+            maxA=Math.max(maxA,heights[i]*(rightSmall[i]-leftSmall[i]+1));
+        }
+        return maxA;
+    }
+}

@@ -1,0 +1,61 @@
+rotate image
+
+
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+        for(int i =0;i<n;i++)
+            for(int j = 0;j < i;j++)
+                swap(matrix[i][j],matrix[j][i]);
+        for(int i =0;i<n;i++)
+        reverse(matrix[i].begin(),matrix[i].end());
+        
+        
+    }
+};
+........................................................................................
+length of longest substring
+
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashMap<Character,Integer>mpp = new HashMap<>();
+        int left = 0,right = 0;
+        int n = s.length();
+        int len = 0;
+        while(right<n){
+            if(mpp.containsKey(s.charAt(right)))
+              left = Math.max(mpp.get(s.charAt(right))+1,left);
+
+            mpp.put(s.charAt(right),right);
+            len = Math.max(len,right-left+1);
+            right++;
+        }
+        return len;
+        
+    }
+}
+
+
+...................................................................................................................................
+two sums
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int x=-1,y=-1;
+        for(int i =0;i<nums.length;i++){
+            for(int j=i+1;j<nums.length;++j){
+                if(nums[i]+nums[j]==target){
+                    x=i;
+                    y=j;
+                    break;
+                }
+            }
+            if(x!=-1)break;
+        }
+        int [] ans={x,y};
+        return ans;
+        
+    }
+}
